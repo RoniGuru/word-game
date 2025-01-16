@@ -1,8 +1,8 @@
 import { useState } from 'react';
+import NavBar from './components/navBar';
+import Game from './components/Game';
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <div>
       <style>
@@ -10,7 +10,8 @@ function App() {
        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&display=swap');
         `}
       </style>
-      game
+      <NavBar />
+      <Game />
     </div>
   );
 }

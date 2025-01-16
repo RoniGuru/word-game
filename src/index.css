@@ -12,3 +12,34 @@
   color: #7cfc00;
   transition: 0.2s ease-in;
 }
+
+.game {
+  width: 100%;
+  height: 88vh;
+}
+
+.startButton {
+  padding: 20px;
+  border: 4px solid #146c11;
+}
+
+.startButton:hover {
+  border-color: #7cfc00;
+  color: #7cfc00;
+  transition: 0.2s ease-in;
+}
+
+.gameContainer {
+  border: 4px solid #7cfc00;
+  height: 80%;
+  width: 80%;
+}
+
+.gameDot {
+  background-color: #7cfc00;
+  transition: background-color 0.4s ease-in;
+}
+
+.bg-light {
+  background-color: #7cfc00;
+}
