@@ -8,12 +8,16 @@ export default function Game() {
 
   const [solved, setSolved] = useState<string[]>([]);
 
-  useEffect(() => {
+  function createEmptyWord() {
     let array = [];
     for (let i = 0; i < word.length; i++) {
       array.push('_');
     }
     setSolved(array);
+  }
+
+  useEffect(() => {
+    createEmptyWord();
   }, []);
 
   function isAlphabet(key: string): boolean {
@@ -48,13 +52,15 @@ export default function Game() {
   };
 
   useEffect(() => {
-    // Add event listener when component mounts
-    window.addEventListener('keypress', handleKeyPress);
+    if (start) {
+      // Add event listener when component mounts
+      window.addEventListener('keypress', handleKeyPress);
 
-    // Cleanup listener when component unmounts
-    return () => {
-      window.removeEventListener('keypress', handleKeyPress);
-    };
+      // Cleanup listener when component unmounts
+      return () => {
+        window.removeEventListener('keypress', handleKeyPress);
+      };
+    }
   }, [handleKeyPress]);
 
   return (
@@ -77,7 +83,10 @@ export default function Game() {
           </div>
           <button
             className="startButton text-4xl w-1/12"
-            onClick={() => setStart(!start)}
+            onClick={() => {
+              setStart(!start);
+              createEmptyWord();
+            }}
           >
             End
           </button>
