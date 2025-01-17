@@ -23,9 +23,9 @@ export default function Game() {
   const checkWord = useCallback(() => {
     let temp: string[] = [];
     for (let i = 0; i < word.length; i++) {
-      if (word[i] === key) {
+      if (word[i] === key.toLowerCase()) {
         temp = [...solved];
-        temp[i] = key;
+        temp[i] = key.toLowerCase();
         setSolved(temp);
       }
     }
