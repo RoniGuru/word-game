@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import NavBar from './components/navBar';
+import NavBar from './components/NavBar';
 import Game from './components/Game';
 
 function App() {

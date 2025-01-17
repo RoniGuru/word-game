@@ -1,34 +1,79 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 export default function Game() {
   const [start, setStart] = useState<boolean>(false);
-  const [score, setScore] = useState<number>(0);
+  const [key, setKey] = useState<string>('');
 
-  const [x, setX] = useState<number>(Math.floor(Math.random() * 80) + 15);
-  const [y, setY] = useState<number>(Math.floor(Math.random() * 80) + 15);
+  const word: string = 'ring';
 
-  function setDot() {
-    randomPosition();
+  const [solved, setSolved] = useState<string[]>([]);
 
-    setScore(score + 1);
-    setTimeout(() => {}, 100);
+  useEffect(() => {
+    let array = [];
+    for (let i = 0; i < word.length; i++) {
+      array.push('_');
+    }
+    setSolved(array);
+  }, []);
+
+  function isAlphabet(key: string): boolean {
+    return /^[A-Za-z]$/.test(key);
   }
 
-  function randomPosition() {
-    setX(Math.floor(Math.random() * 98));
-    setY(Math.floor(Math.random() * 98));
-  }
+  const checkWord = useCallback(() => {
+    let temp: string[] = [];
+    for (let i = 0; i < word.length; i++) {
+      if (word[i] === key) {
+        temp = [...solved];
+        temp[i] = key;
+        setSolved(temp);
+      }
+    }
+    let solvedWord = temp.join('');
+    console.log(solvedWord);
+    if (solvedWord === word) {
+      console.log('solved');
+    }
+  }, [word, key, solved]);
+
+  const handleKeyPress = (event: KeyboardEvent) => {
+    if (isAlphabet(event.key)) {
+      setKey(event.key);
+    }
+
+    if (event.key === 'Enter' && key.length === 1) {
+      console.log('checking word');
+      checkWord();
+    }
+  };
+
+  useEffect(() => {
+    // Add event listener when component mounts
+    window.addEventListener('keypress', handleKeyPress);
+
+    // Cleanup listener when component unmounts
+    return () => {
+      window.removeEventListener('keypress', handleKeyPress);
+    };
+  }, [handleKeyPress]);
 
   return (
     <div className="game flex justify-center items-center">
       {start ? (
         <div className="flex flex-col h-full w-full justify-center items-center gap-10">
           <div className="gameContainer">
-            <div
-              className={`gameDot h-8 w-8 cursor-pointer rounded-full relative`}
-              style={{ left: `${x}%`, top: `${y}%` }}
-              onClick={() => setDot()}
-            ></div>
+            <div className="flex flex-row gap-5 ">
+              {solved.map((letter, index) => (
+                <div className="text-8xl" key={index}>
+                  {letter}
+                </div>
+              ))}
+              {/* {word.split('').map((letter) => (
+                <div className="text-8xl">{letter}</div>
+              ))} */}
+            </div>
+
+            <div className="text-8xl">{key} this is the key</div>
           </div>
           <button
             className="startButton text-4xl w-1/12"
