@@ -5,6 +5,8 @@ export default function Game() {
   const [key, setKey] = useState<string>('');
   const [time, setTime] = useState<number>(0);
 
+  const [lives, setLives] = useState<number>(0);
+
   const word: string = 'ring';
 
   const [solved, setSolved] = useState<string[]>([]);
@@ -37,6 +39,7 @@ export default function Game() {
     setStart(!start);
     createEmptyWord();
     setTime(60);
+    setLives(3);
   }
 
   function endGame() {
@@ -51,12 +54,18 @@ export default function Game() {
 
   const checkWord = useCallback(() => {
     let temp: string[] = [];
+    let present = false;
     for (let i = 0; i < word.length; i++) {
       if (word[i] === key.toLowerCase()) {
         temp = [...solved];
         temp[i] = key.toLowerCase();
         setSolved(temp);
+        present = true;
       }
+    }
+    if (!present) {
+      setLives((prevLives) => prevLives - 1);
+      if (lives === 0) endGame();
     }
     let solvedWord = temp.join('');
     console.log(solvedWord);
@@ -94,6 +103,7 @@ export default function Game() {
         <div className="flex flex-col h-full w-full justify-center items-center gap-10">
           <div className="gameContainer">
             <div className="text-8xl">{time}</div>
+            <div className="text-8xl">{lives} lives</div>
             <div className="flex flex-row gap-5 ">
               {solved.map((letter, index) => (
                 <div className="text-8xl" key={index}>
