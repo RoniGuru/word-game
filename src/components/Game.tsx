@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from 'react';
 export default function Game() {
   const [start, setStart] = useState<boolean>(false);
   const [key, setKey] = useState<string>('');
+  const [time, setTime] = useState<number>(0);
 
   const word: string = 'ring';
 
@@ -15,6 +16,20 @@ export default function Game() {
     }
     setSolved(array);
   }
+
+  useEffect(() => {
+    if (start && time > 0) {
+      const interval = setInterval(() => {
+        setTime((prevSeconds) => prevSeconds - 1);
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+    if (time === 0) {
+      setStart(false);
+      createEmptyWord();
+      setTime(60);
+    }
+  }, [start, time]);
 
   useEffect(() => {
     createEmptyWord();
@@ -68,6 +83,7 @@ export default function Game() {
       {start ? (
         <div className="flex flex-col h-full w-full justify-center items-center gap-10">
           <div className="gameContainer">
+            <div className="text-8xl">{time}</div>
             <div className="flex flex-row gap-5 ">
               {solved.map((letter, index) => (
                 <div className="text-8xl" key={index}>
@@ -86,6 +102,7 @@ export default function Game() {
             onClick={() => {
               setStart(!start);
               createEmptyWord();
+              setTime(60);
             }}
           >
             End
