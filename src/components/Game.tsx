@@ -61,7 +61,7 @@ export default function Game() {
     let solvedWord = temp.join('');
     console.log(solvedWord);
     if (solvedWord === word) {
-      console.log('solved');
+      endGame();
     }
   }, [word, key, solved]);
 
