@@ -25,15 +25,25 @@ export default function Game() {
       return () => clearInterval(interval);
     }
     if (time === 0) {
-      setStart(false);
-      createEmptyWord();
-      setTime(60);
+      endGame();
     }
   }, [start, time]);
 
   useEffect(() => {
     createEmptyWord();
   }, []);
+
+  function startGame() {
+    setStart(!start);
+    createEmptyWord();
+    setTime(60);
+  }
+
+  function endGame() {
+    setStart(false);
+    createEmptyWord();
+    setTime(60);
+  }
 
   function isAlphabet(key: string): boolean {
     return /^[A-Za-z]$/.test(key);
@@ -97,14 +107,7 @@ export default function Game() {
 
             <div className="text-8xl">{key} this is the key</div>
           </div>
-          <button
-            className="startButton text-4xl w-1/12"
-            onClick={() => {
-              setStart(!start);
-              createEmptyWord();
-              setTime(60);
-            }}
-          >
+          <button className="startButton text-4xl w-1/12" onClick={startGame}>
             End
           </button>
         </div>
