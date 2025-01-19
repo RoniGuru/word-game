@@ -9,7 +9,6 @@ export default function Game() {
   const [lives, setLives] = useState<number>(0);
 
   const [word, setWord] = useState<string>('ring');
-  //use words
 
   const [solved, setSolved] = useState<string[]>([]);
 
@@ -73,7 +72,7 @@ export default function Game() {
       if (lives === 0) endGame();
     }
     let solvedWord = temp.join('');
-    console.log(solvedWord);
+
     if (solvedWord === word) {
       endGame();
     }
@@ -85,7 +84,6 @@ export default function Game() {
     }
 
     if (event.key === 'Enter' && key.length === 1) {
-      console.log('checking word');
       checkWord();
     }
   };
