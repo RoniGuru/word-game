@@ -33,10 +33,6 @@ export default function Game() {
     }
   }, [start, time]);
 
-  useEffect(() => {
-    createEmptyWord();
-  }, []);
-
   function pickRandomWord() {
     let ranNum = Math.floor(Math.random() * words.length);
     console.log(ranNum);
@@ -62,16 +58,16 @@ export default function Game() {
   }
 
   const checkWord = useCallback(() => {
-    let temp: string[] = [];
+    let temp: string[] = [...solved];
     let present = false;
     for (let i = 0; i < word.length; i++) {
       if (word[i] === key.toLowerCase()) {
-        temp = [...solved];
         temp[i] = key.toLowerCase();
-        setSolved(temp);
+
         present = true;
       }
     }
+    setSolved(temp);
     if (!present) {
       setLives((prevLives) => prevLives - 1);
       if (lives === 0) endGame();
