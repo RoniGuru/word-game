@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { words } from '../data/words';
 
 export default function Game() {
   const [start, setStart] = useState<boolean>(false);
@@ -9,7 +10,6 @@ export default function Game() {
 
   const [word, setWord] = useState<string>('ring');
   //use words
-  const words = ['ring', 'letter'];
 
   const [solved, setSolved] = useState<string[]>([]);
 
