@@ -7,7 +7,9 @@ export default function Game() {
 
   const [lives, setLives] = useState<number>(0);
 
-  const word: string = 'ring';
+  const [word, setWord] = useState<string>('ring');
+  //use words
+  const words = ['ring', 'letter'];
 
   const [solved, setSolved] = useState<string[]>([]);
 
@@ -35,7 +37,14 @@ export default function Game() {
     createEmptyWord();
   }, []);
 
+  function pickRandomWord() {
+    let ranNum = Math.floor(Math.random() * words.length);
+    console.log(ranNum);
+    setWord(words[ranNum]);
+  }
+
   function startGame() {
+    pickRandomWord();
     setStart(!start);
     createEmptyWord();
     setTime(60);
