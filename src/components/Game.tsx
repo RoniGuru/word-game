@@ -55,6 +55,7 @@ export default function Game() {
     setStart(true);
     setTime(60);
     setLives(5);
+    setKey('');
   }
 
   function endGame() {
