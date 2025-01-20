@@ -8,17 +8,20 @@ export default function Game() {
 
   const [lives, setLives] = useState<number>(0);
 
-  const [word, setWord] = useState<string>('ring');
+  const [word, setWord] = useState<string>('');
 
   const [solved, setSolved] = useState<string[]>([]);
 
-  function createEmptyWord() {
-    let array = [];
-    for (let i = 0; i < word.length; i++) {
-      array.push('_');
+  useEffect(() => {
+    if (word) {
+      // Only create empty word if word exists
+      let array = [];
+      for (let i = 0; i < word.length; i++) {
+        array.push('_');
+      }
+      setSolved(array);
     }
-    setSolved(array);
-  }
+  }, [word]);
 
   useEffect(() => {
     if (start && time > 0) {
@@ -41,14 +44,14 @@ export default function Game() {
   function startGame() {
     pickRandomWord();
     setStart(!start);
-    createEmptyWord();
+
     setTime(60);
     setLives(3);
   }
 
   function endGame() {
     setStart(false);
-    createEmptyWord();
+
     setTime(60);
   }
 
@@ -113,9 +116,7 @@ export default function Game() {
                   {letter}
                 </div>
               ))}
-              {/* {word.split('').map((letter) => (
-                <div className="text-8xl">{letter}</div>
-              ))} */}
+              <div>{word}</div>
             </div>
 
             <div className="text-8xl">{key} this is the key</div>
@@ -127,7 +128,7 @@ export default function Game() {
       ) : (
         <button
           className="startButton text-4xl w-1/12"
-          onClick={() => setStart(!start)}
+          onClick={() => startGame()}
         >
           START
         </button>
