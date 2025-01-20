@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { words } from '../data/words';
+import { FaHeart } from 'react-icons/fa';
 
 export default function Game() {
   const [start, setStart] = useState<boolean>(false);
@@ -107,23 +108,27 @@ export default function Game() {
     <div className="game flex justify-center items-center">
       {start ? (
         <div className="flex flex-col h-full w-full justify-center items-center gap-10 text-center">
-          <div className="gameContainer">
+          <div className="gameContainer flex flex-col justify-between">
             <div className="flex flex-row justify-between text-center ">
               <div className="text-4xl w-1/3">score: {score}</div>
               <div className="text-8xl  w-1/3">{time}</div>
-              <div className="text-4xl w-1/3">{lives}</div>
+              <div className="text-4xl w-1/3 flex flex-row gap-5">
+                {Array.from({ length: lives }, (_, index) => (
+                  <FaHeart key={index} />
+                ))}
+              </div>
             </div>
-
-            <div className="flex flex-row gap-5 justify-center ">
-              {solved.map((letter, index) => (
-                <div className="text-8xl" key={index}>
-                  {letter}
-                </div>
-              ))}
+            <div>
               <div>{word}</div>
+              <div className="flex flex-row gap-5 justify-center ">
+                {solved.map((letter, index) => (
+                  <div className="text-8xl" key={index}>
+                    {letter}
+                  </div>
+                ))}
+              </div>
             </div>
-
-            <div className="text-8xl">{key} this is the key</div>
+            <div className="text-8xl">{key} </div>
           </div>
           <button className="startButton text-4xl w-1/12" onClick={endGame}>
             End
