@@ -12,9 +12,10 @@ export default function Game() {
 
   const [solved, setSolved] = useState<string[]>([]);
 
+  const [score, setScore] = useState<number>(0);
+
   useEffect(() => {
     if (word) {
-      // Only create empty word if word exists
       let array = [];
       for (let i = 0; i < word.length; i++) {
         array.push('_');
@@ -37,22 +38,20 @@ export default function Game() {
 
   function pickRandomWord() {
     let ranNum = Math.floor(Math.random() * words.length);
-    console.log(ranNum);
     setWord(words[ranNum]);
   }
 
   function startGame() {
     pickRandomWord();
-    setStart(!start);
-
+    setStart(true);
     setTime(60);
     setLives(3);
   }
 
   function endGame() {
     setStart(false);
-
     setTime(60);
+    setScore(0);
   }
 
   function isAlphabet(key: string): boolean {
@@ -77,7 +76,8 @@ export default function Game() {
     let solvedWord = temp.join('');
 
     if (solvedWord === word) {
-      endGame();
+      setScore((prevScore) => prevScore + 1);
+      startGame();
     }
   }, [word, key, solved]);
 
@@ -106,11 +106,15 @@ export default function Game() {
   return (
     <div className="game flex justify-center items-center">
       {start ? (
-        <div className="flex flex-col h-full w-full justify-center items-center gap-10">
+        <div className="flex flex-col h-full w-full justify-center items-center gap-10 text-center">
           <div className="gameContainer">
-            <div className="text-8xl">{time}</div>
-            <div className="text-8xl">{lives} lives</div>
-            <div className="flex flex-row gap-5 ">
+            <div className="flex flex-row justify-between text-center ">
+              <div className="text-4xl w-1/3">score: {score}</div>
+              <div className="text-8xl  w-1/3">{time}</div>
+              <div className="text-4xl w-1/3">{lives}</div>
+            </div>
+
+            <div className="flex flex-row gap-5 justify-center ">
               {solved.map((letter, index) => (
                 <div className="text-8xl" key={index}>
                   {letter}
@@ -121,7 +125,7 @@ export default function Game() {
 
             <div className="text-8xl">{key} this is the key</div>
           </div>
-          <button className="startButton text-4xl w-1/12" onClick={startGame}>
+          <button className="startButton text-4xl w-1/12" onClick={endGame}>
             End
           </button>
         </div>
