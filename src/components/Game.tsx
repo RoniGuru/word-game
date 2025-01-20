@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { words } from '../data/words';
+import { WordCategories, words } from '../data/words';
 import { FaHeart } from 'react-icons/fa';
 
 export default function Game() {
@@ -8,7 +8,7 @@ export default function Game() {
   const [time, setTime] = useState<number>(0);
 
   const [lives, setLives] = useState<number>(0);
-
+  const [category, setCategory] = useState<string>('');
   const [word, setWord] = useState<string>('');
 
   const [solved, setSolved] = useState<string[]>([]);
@@ -38,15 +38,23 @@ export default function Game() {
   }, [start, time]);
 
   function pickRandomWord() {
-    let ranNum = Math.floor(Math.random() * words.length);
-    setWord(words[ranNum]);
+    const categories = Object.keys(words) as (keyof WordCategories)[];
+    let randCategory =
+      categories[Math.floor(Math.random() * categories.length)];
+    setCategory(String(randCategory));
+
+    const randomWord =
+      words[randCategory][
+        Math.floor(Math.random() * words[randCategory].length)
+      ];
+    setWord(randomWord);
   }
 
   function startGame() {
     pickRandomWord();
     setStart(true);
     setTime(60);
-    setLives(3);
+    setLives(5);
   }
 
   function endGame() {
@@ -118,7 +126,8 @@ export default function Game() {
                 ))}
               </div>
             </div>
-            <div>
+            <div className=" h-1/2d">
+              <div className="text-6xl">{category}</div>
               <div>{word}</div>
               <div className="flex flex-row gap-5 justify-center ">
                 {solved.map((letter, index) => (

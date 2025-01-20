@@ -30,9 +30,10 @@
 }
 
 .gameContainer {
-  border: 4px solid #7cfc00;
   height: 80%;
   width: 80%;
+  background-color: blue;
+  color: white;
 }
 
 .gameDot {
