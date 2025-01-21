@@ -152,7 +152,10 @@ export default function Game() {
               <div className="text-6xl" data-testid="category">
                 {category}
               </div>
-              <div>{word}</div>
+              {process.env.NODE_ENV === 'development' ? (
+                <div>{word}</div>
+              ) : null}
+
               <div className="flex flex-row gap-5 justify-center ">
                 {solved.map((letter, index) => (
                   <div className="text-8xl" key={index} data-testid="letter">
