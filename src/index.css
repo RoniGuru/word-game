@@ -34,6 +34,22 @@
   width: 80%;
   background-color: blue;
   color: white;
+  animation: turnOn 1s;
+}
+
+@keyframes turnOn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .gameDot {
