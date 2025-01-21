@@ -119,20 +119,26 @@ export default function Game() {
         <div className="flex flex-col h-full w-full justify-center items-center gap-10 text-center">
           <div className="gameContainer flex flex-col justify-between">
             <div className="flex flex-row justify-between text-center ">
-              <div className="text-4xl w-1/3">score: {score}</div>
-              <div className="text-8xl  w-1/3">{time}</div>
+              <div className="text-4xl w-1/3" data-testid="score">
+                score: {score}
+              </div>
+              <div className="text-8xl  w-1/3" data-testid="time">
+                {time}
+              </div>
               <div className="text-4xl w-1/3 flex flex-row gap-5">
                 {Array.from({ length: lives }, (_, index) => (
-                  <FaHeart key={index} />
+                  <FaHeart key={index} data-testid="heart-icon" />
                 ))}
               </div>
             </div>
             <div className=" h-1/2d">
-              <div className="text-6xl">{category}</div>
+              <div className="text-6xl" data-testid="category">
+                {category}
+              </div>
               <div>{word}</div>
               <div className="flex flex-row gap-5 justify-center ">
                 {solved.map((letter, index) => (
-                  <div className="text-8xl" key={index}>
+                  <div className="text-8xl" key={index} data-testid="letter">
                     {letter}
                   </div>
                 ))}
@@ -141,7 +147,7 @@ export default function Game() {
             <div className="text-8xl">{key} </div>
           </div>
           <button className="startButton text-4xl w-1/12" onClick={endGame}>
-            End
+            END
           </button>
         </div>
       ) : (
