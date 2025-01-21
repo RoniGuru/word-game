@@ -17,6 +17,8 @@ export default function Game() {
 
   const [highScore, setHighScore] = useState<number>(0);
 
+  const [isAnimating, setIsAnimating] = useState(false);
+
   useEffect(() => {
     let savedScore = localStorage.getItem('highScore');
     if (savedScore) {
@@ -67,6 +69,7 @@ export default function Game() {
   }
 
   function startGame() {
+    setIsAnimating(true);
     pickRandomWord();
     setStart(true);
     setTime(60);
@@ -75,9 +78,13 @@ export default function Game() {
   }
 
   function endGame() {
-    setStart(false);
-    setTime(60);
-    setScore(0);
+    setIsAnimating(false);
+    // Wait for animation to complete before resetting game state
+    setTimeout(() => {
+      setStart(false);
+      setTime(60);
+      setScore(0);
+    }, 1000); // Match this with animation duration
   }
 
   function isAlphabet(key: string): boolean {
@@ -134,7 +141,11 @@ export default function Game() {
     <div className="game flex justify-center items-center">
       {start ? (
         <div className="flex flex-col h-full w-full justify-center items-center gap-10 text-center">
-          <div className="gameContainer flex flex-col justify-between">
+          <div
+            className={`gameContainer flex flex-col justify-between  ${
+              isAnimating ? 'turnOn' : 'turnOff'
+            }`}
+          >
             <div className="flex flex-row justify-between text-center ">
               <div className="text-4xl w-1/3" data-testid="score">
                 score: {score} highScore: {highScore}
@@ -166,13 +177,16 @@ export default function Game() {
             </div>
             <div className="text-8xl">{key} </div>
           </div>
-          <button className="startButton text-4xl w-1/12" onClick={endGame}>
+          <button
+            className="startButton text-4xl w-1/12 transition duration-300 ease-in-out hover:scale-110"
+            onClick={endGame}
+          >
             END
           </button>
         </div>
       ) : (
         <button
-          className="startButton text-4xl w-1/12"
+          className="startButton text-4xl w-1/12 transition duration-300 ease-in-out hover:scale-110 fadeIn visible"
           onClick={() => startGame()}
         >
           START
