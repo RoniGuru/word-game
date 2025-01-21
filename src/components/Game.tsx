@@ -15,6 +15,15 @@ export default function Game() {
 
   const [score, setScore] = useState<number>(0);
 
+  const [highScore, setHighScore] = useState<number>(0);
+
+  useEffect(() => {
+    let savedScore = localStorage.getItem('highScore');
+    if (savedScore) {
+      setHighScore(Number(savedScore));
+    }
+  }, []);
+
   useEffect(() => {
     if (word) {
       let array = [];
@@ -24,6 +33,13 @@ export default function Game() {
       setSolved(array);
     }
   }, [word]);
+
+  useEffect(() => {
+    if (score > highScore) {
+      setHighScore(score);
+      localStorage.setItem('highScore', String(score));
+    }
+  }, [score]);
 
   useEffect(() => {
     if (start && time > 0) {
@@ -87,6 +103,7 @@ export default function Game() {
 
     if (solvedWord === word) {
       setScore((prevScore) => prevScore + 1);
+
       startGame();
     }
   }, [word, key, solved]);
@@ -120,7 +137,7 @@ export default function Game() {
           <div className="gameContainer flex flex-col justify-between">
             <div className="flex flex-row justify-between text-center ">
               <div className="text-4xl w-1/3" data-testid="score">
-                score: {score}
+                score: {score} highScore: {highScore}
               </div>
               <div className="text-8xl  w-1/3" data-testid="time">
                 {time}
