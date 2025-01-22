@@ -27,27 +27,26 @@
 .gameContainer {
   height: 80%;
   width: 80%;
-  background-color: black;
-  color: white;
   padding: 10px;
+  color: white;
+  background-color: black;
 }
 
 .turnOn {
-  animation: turnOn 1s;
-  background-color: blue;
+  animation: turnOn 0.2s ease-in forwards;
+  background-color: black;
 }
 
 .turnOff {
-  animation: turnOff 0.2s;
+  animation: turnOff 0.2s ease-in forwards;
+  background-color: black;
 }
 
 @keyframes turnOn {
   0% {
     background-color: black;
   }
-  50% {
-    background-color: blue;
-  }
+
   100% {
     background-color: blue;
   }
@@ -57,9 +56,7 @@
   0% {
     background-color: blue;
   }
-  50% {
-    background-color: black;
-  }
+
   100% {
     background-color: black;
   }
