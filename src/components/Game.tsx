@@ -7,7 +7,7 @@ export default function Game() {
   const [key, setKey] = useState<string>('');
   const [time, setTime] = useState<number>(0);
 
-  const [lives, setLives] = useState<number>(0);
+  const [lives, setLives] = useState<number>(5);
   const [category, setCategory] = useState<string>('');
   const [word, setWord] = useState<string>('');
 
@@ -29,8 +29,14 @@ export default function Game() {
   useEffect(() => {
     if (word) {
       let array = [];
+      let random = 0;
       for (let i = 0; i < word.length; i++) {
-        array.push('_');
+        random = Math.floor(Math.random() * 100);
+        if (random >= 70) {
+          array.push(word[i]);
+        } else {
+          array.push('_');
+        }
       }
       setSolved(array);
     }
@@ -72,8 +78,9 @@ export default function Game() {
     setIsAnimating(true);
     pickRandomWord();
     setStart(true);
+
     setTime(60);
-    setLives(5);
+
     setKey('');
   }
 
@@ -84,7 +91,8 @@ export default function Game() {
       setStart(false);
       setTime(60);
       setScore(0);
-    }, 1000); // Match this with animation duration
+      setLives(5);
+    }, 900);
   }
 
   function isAlphabet(key: string): boolean {
@@ -115,7 +123,7 @@ export default function Game() {
     }
   }, [word, key, solved]);
 
-  const handleKeyPress = (event: KeyboardEvent) => {
+  const handleKeyPress = async (event: KeyboardEvent) => {
     if (isAlphabet(event.key)) {
       setKey(event.key);
     }
