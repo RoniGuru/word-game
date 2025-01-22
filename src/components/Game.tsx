@@ -84,9 +84,7 @@ export default function Game() {
     setIsAnimating(true);
     pickRandomWord();
     setStart(true);
-
     setTime(60);
-
     setKey('');
   }
 
@@ -98,7 +96,7 @@ export default function Game() {
       setTime(60);
       setScore(0);
       setLives(5);
-    }, 900);
+    }, 150);
   }
 
   function isAlphabet(key: string): boolean {
@@ -154,7 +152,7 @@ export default function Game() {
   return (
     <div className="game flex justify-center items-center">
       {start ? (
-        <div className="flex flex-col h-full w-full justify-center items-center gap-10 text-center">
+        <div className="flex flex-col h-full w-full justify-center items-center gap-10 text-center relative ">
           <div
             className={`gameContainer flex flex-col justify-between  ${
               isAnimating ? 'turnOn' : 'turnOff'
@@ -191,20 +189,90 @@ export default function Game() {
             </div>
             <div className="text-8xl">{key} </div>
           </div>
+
           <button
-            className="startButton text-4xl w-1/12 transition duration-300 ease-in-out hover:scale-110"
             onClick={endGame}
+            className={`
+        w-24 h-24 
+        rounded-full 
+        flex items-center justify-center 
+        transition-all duration-300 
+    bg-red-400
+        hover:bg-red-700 
+        focus:outline-none 
+        focus:ring-4 
+        focus:ring-red-300
+      `}
+            aria-label="Power button"
           >
-            END
+            <div
+              className={`
+        w-12 h-12 
+        flex items-center justify-center
+        text-white
+        transition-transform duration-300
+      opacity-80
+      `}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                className="w-full h-full"
+              >
+                <path
+                  d="M18.36 6.64a9 9 0 1 1-12.73 0M12 2v10"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
           </button>
         </div>
       ) : (
-        <button
-          className="startButton text-4xl w-1/12 transition duration-300 ease-in-out hover:scale-110 fadeIn visible"
-          onClick={() => startGame()}
-        >
-          START
-        </button>
+        <div className="flex flex-col h-full w-full justify-center items-center gap-10 text-center ">
+          <div className="h-4/5 w-4/5 bg-black"></div>
+          <button
+            onClick={startGame}
+            className={`
+        w-24 h-24 
+        rounded-full 
+        flex items-center justify-center 
+        transition-all duration-300 
+    bg-red-500
+        hover:bg-red-700 
+        focus:outline-none 
+        focus:ring-4 
+        focus:ring-red-300
+      `}
+            aria-label="Power button"
+          >
+            <div
+              className={`
+        w-12 h-12 
+        flex items-center justify-center
+        text-white
+        transition-transform duration-300
+      opacity-90
+      `}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                className="w-full h-full"
+              >
+                <path
+                  d="M18.36 6.64a9 9 0 1 1-12.73 0M12 2v10"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+          </button>
+        </div>
       )}
     </div>
   );
