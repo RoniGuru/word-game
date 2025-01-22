@@ -41,27 +41,25 @@ export default function Game() {
 
   useEffect(() => {
     if (start && time > 0) {
-      timer();
+      const interval = setInterval(() => {
+        setTime((prevSeconds) => prevSeconds - 1);
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+    if (time === 0) {
+      endGame();
     }
   }, [start, time]);
-
-  function timer() {
-    const interval = setInterval(() => {
-      setTime((prevSeconds) => prevSeconds - 1);
-    }, 1000);
-    return () => clearInterval(interval);
-  }
-  if (time === 0) {
-    endGame();
-  }
 
   function createSolved() {
     let array = [];
     let random = 0;
+    let emptyCount = word.length - Math.floor(word.length / 3);
     for (let i = 0; i < word.length; i++) {
       random = Math.floor(Math.random() * 100);
-      if (random >= 70) {
+      if (random >= 70 && emptyCount != 0) {
         array.push(word[i]);
+        emptyCount--;
       } else {
         array.push('_');
       }
