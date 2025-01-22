@@ -28,17 +28,7 @@ export default function Game() {
 
   useEffect(() => {
     if (word) {
-      let array = [];
-      let random = 0;
-      for (let i = 0; i < word.length; i++) {
-        random = Math.floor(Math.random() * 100);
-        if (random >= 70) {
-          array.push(word[i]);
-        } else {
-          array.push('_');
-        }
-      }
-      setSolved(array);
+      createSolved();
     }
   }, [word]);
 
@@ -51,15 +41,33 @@ export default function Game() {
 
   useEffect(() => {
     if (start && time > 0) {
-      const interval = setInterval(() => {
-        setTime((prevSeconds) => prevSeconds - 1);
-      }, 1000);
-      return () => clearInterval(interval);
-    }
-    if (time === 0) {
-      endGame();
+      timer();
     }
   }, [start, time]);
+
+  function timer() {
+    const interval = setInterval(() => {
+      setTime((prevSeconds) => prevSeconds - 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }
+  if (time === 0) {
+    endGame();
+  }
+
+  function createSolved() {
+    let array = [];
+    let random = 0;
+    for (let i = 0; i < word.length; i++) {
+      random = Math.floor(Math.random() * 100);
+      if (random >= 70) {
+        array.push(word[i]);
+      } else {
+        array.push('_');
+      }
+    }
+    setSolved(array);
+  }
 
   function pickRandomWord() {
     const categories = Object.keys(words) as (keyof WordCategories)[];
