@@ -167,7 +167,7 @@ export default function Game() {
               <div className="text-8xl  w-1/3" data-testid="time">
                 {time}
               </div>
-              <div className="text-4xl w-1/3 flex flex-row gap-5">
+              <div className="text-4xl w-1/3 flex flex-row gap-5 justify-center">
                 {Array.from({ length: lives }, (_, index) => (
                   <FaHeart key={index} data-testid="heart-icon" />
                 ))}
