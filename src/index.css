@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  background-color: #30303b;
+  background-color: #141414;
   color: #146c11;
   font-family: 'Share Tech Mono', monospace;
 }
@@ -25,41 +25,21 @@
 }
 
 .gameContainer {
-  height: 80%;
-  width: 80%;
+  height: 100%;
+  width: 100%;
   padding: 10px;
   color: white;
   background-color: black;
+  color: #2ecc71;
+  text-shadow: 0 0 8px rgba(46, 204, 113, 0.6);
 }
 
 .turnOn {
-  animation: turnOn 0.2s ease-in forwards;
   background-color: black;
 }
 
 .turnOff {
-  animation: turnOff 0.2s ease-in forwards;
   background-color: black;
-}
-
-@keyframes turnOn {
-  0% {
-    background-color: black;
-  }
-
-  100% {
-    background-color: blue;
-  }
-}
-
-@keyframes turnOff {
-  0% {
-    background-color: blue;
-  }
-
-  100% {
-    background-color: black;
-  }
 }
 
 .gameDot {

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { WordCategories, words } from '../data/words';
-import { FaHeart } from 'react-icons/fa';
+
 import PowerButton from './PowerButton';
 import GameContainer from './GameContainer';
 
@@ -155,22 +155,26 @@ export default function Game() {
     <div className="game flex justify-center items-center">
       <div className="flex flex-col h-full w-full justify-center items-center gap-10 text-center relative ">
         {start ? (
-          <GameContainer
-            gameData={{
-              start,
-              highScore,
-              isAnimating,
-              score,
-              time,
-              lives,
-              category,
-              solved,
-              word,
-              key,
-            }}
-          />
+          <div className="relative bg-gray-800 rounded-lg p-8 shadow-2xl border-4 border-gray-700 h-4/5 w-4/5 flex justify-center">
+            <GameContainer
+              gameData={{
+                start,
+                highScore,
+                isAnimating,
+                score,
+                time,
+                lives,
+                category,
+                solved,
+                word,
+                key,
+              }}
+            />
+          </div>
         ) : (
-          <div className="h-4/5 w-4/5 bg-black"></div>
+          <div className="relative bg-gray-800 rounded-lg p-8 shadow-2xl border-4 border-gray-700 h-4/5 w-4/5 flex justify-center">
+            <div className="h-full w-full bg-black"></div>
+          </div>
         )}
 
         <PowerButton start={start} startGame={startGame} endGame={endGame} />
