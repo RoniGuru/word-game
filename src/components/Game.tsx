@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { WordCategories, words } from '../data/words';
 import { FaHeart } from 'react-icons/fa';
 import PowerButton from './PowerButton';
+import GameContainer from './GameContainer';
 
 export default function Game() {
   const [start, setStart] = useState<boolean>(false);
@@ -154,42 +155,20 @@ export default function Game() {
     <div className="game flex justify-center items-center">
       <div className="flex flex-col h-full w-full justify-center items-center gap-10 text-center relative ">
         {start ? (
-          <div
-            className={`gameContainer flex flex-col justify-between  ${
-              isAnimating ? 'turnOn' : 'turnOff'
-            }  ${start ? 'visible' : 'invisible'}`}
-          >
-            <div className="flex flex-row justify-between text-center ">
-              <div className="text-4xl w-1/3" data-testid="score">
-                score: {score} highScore: {highScore}
-              </div>
-              <div className="text-8xl  w-1/3" data-testid="time">
-                {time}
-              </div>
-              <div className="text-4xl w-1/3 flex flex-row gap-5 justify-center">
-                {Array.from({ length: lives }, (_, index) => (
-                  <FaHeart key={index} data-testid="heart-icon" />
-                ))}
-              </div>
-            </div>
-            <div className=" h-1/2d">
-              <div className="text-6xl" data-testid="category">
-                {category}
-              </div>
-              {process.env.NODE_ENV === 'development' ? (
-                <div>{word}</div>
-              ) : null}
-
-              <div className="flex flex-row gap-5 justify-center ">
-                {solved.map((letter, index) => (
-                  <div className="text-8xl" key={index} data-testid="letter">
-                    {letter}
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="text-8xl">{key} </div>
-          </div>
+          <GameContainer
+            gameData={{
+              start,
+              highScore,
+              isAnimating,
+              score,
+              time,
+              lives,
+              category,
+              solved,
+              word,
+              key,
+            }}
+          />
         ) : (
           <div className="h-4/5 w-4/5 bg-black"></div>
         )}
