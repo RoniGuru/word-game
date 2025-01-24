@@ -12,18 +12,24 @@ interface gameData {
   key: string;
 }
 
-export const initialState: gameData = {
-  start: false,
-  highScore: localStorage.getItem('highscore')
-    ? Number(localStorage.getItem('highscore'))
-    : 0,
-  isAnimating: false,
-  score: 0,
-  lives: 0,
-  category: '',
-  solved: [],
-  word: '',
-  key: '',
+interface gameState {
+  gameState: gameData;
+}
+
+export const initialState: gameState = {
+  gameState: {
+    start: false,
+    highScore: localStorage.getItem('highscore')
+      ? Number(localStorage.getItem('highscore'))
+      : 0,
+    isAnimating: false,
+    score: 0,
+    lives: 0,
+    category: '',
+    solved: [],
+    word: '',
+    key: '',
+  },
 };
 
 const gameSlice = createSlice({
@@ -31,69 +37,71 @@ const gameSlice = createSlice({
   initialState,
   reducers: {
     startGame: (state) => {
-      state.isAnimating = true;
-      state.start = true;
-      state.key = '';
+      state.gameState.isAnimating = true;
+      state.gameState.start = true;
+      state.gameState.key = '';
     },
     endGame: (state) => {
-      state.isAnimating = false;
-      setTimeout(() => {
-        state.start = false;
+      state.gameState.isAnimating = false;
 
-        state.score = 0;
-        state.lives = 5;
-      }, 150);
+      state.gameState.start = false;
+      state.gameState.score = 0;
+      state.gameState.lives = 5;
     },
     checkWord: (state) => {
-      let temp: string[] = state.solved;
+      let temp: string[] = state.gameState.solved;
       let present = false;
-      for (let i = 0; i < state.word.length; i++) {
-        if (state.word[i] === state.key.toLowerCase()) {
-          temp[i] = state.key.toLowerCase();
+      for (let i = 0; i < state.gameState.word.length; i++) {
+        if (state.gameState.word[i] === state.gameState.key.toLowerCase()) {
+          temp[i] = state.gameState.key.toLowerCase();
 
           present = true;
         }
       }
-      state.solved = temp;
+      state.gameState.solved = temp;
       if (!present) {
-        state.lives = state.lives - 1;
+        state.gameState.lives = state.gameState.lives - 1;
       }
     },
     pickRandomWord: (state) => {
       const categories = Object.keys(words) as (keyof WordCategories)[];
       let randCategory =
         categories[Math.floor(Math.random() * categories.length)];
-      state.category = String(randCategory);
+      state.gameState.category = String(randCategory);
 
       const randomWord =
         words[randCategory][
           Math.floor(Math.random() * words[randCategory].length)
         ];
-      state.word = randomWord;
+      state.gameState.word = randomWord;
     },
     createSolved: (state) => {
       let array = [];
       let random = 0;
-      let emptyCount = state.word.length - Math.floor(state.word.length / 3);
-      for (let i = 0; i < state.word.length; i++) {
+      let emptyCount =
+        state.gameState.word.length -
+        Math.floor(state.gameState.word.length / 3);
+      for (let i = 0; i < state.gameState.word.length; i++) {
         random = Math.floor(Math.random() * 100);
         if (random >= 70 && emptyCount != 0) {
-          array.push(state.word[i]);
+          array.push(state.gameState.word[i]);
           emptyCount--;
         } else {
           array.push('_');
         }
       }
-      state.solved = array;
+      state.gameState.solved = array;
     },
-    setHighScore: (state) => {
-      state.highScore = state.score;
-    },
+
     updateScore: (state, action: PayloadAction<number>) => {
-      state.score = action.payload;
+      state.gameState.score = action.payload;
+      if (action.payload > state.gameState.highScore) {
+        localStorage.setItem('highScore', String(state.gameState.score));
+        state.gameState.highScore = action.payload;
+      }
     },
     setKey: (state, action: PayloadAction<string>) => {
-      state.key = action.payload;
+      state.gameState.key = action.payload;
     },
   },
 });
@@ -104,6 +112,7 @@ export const {
   checkWord,
   pickRandomWord,
   createSolved,
-  setHighScore,
+  setKey,
+  updateScore,
 } = gameSlice.actions;
 export default gameSlice.reducer;

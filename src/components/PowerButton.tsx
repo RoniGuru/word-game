@@ -1,21 +1,20 @@
-interface PowerButtonProps {
-  start: boolean;
-  startGame: () => void;
-  endGame: () => void;
-}
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../state/store';
+import { endGame, startGame, pickRandomWord } from '../state/game/gameSlice';
 
-export default function PowerButton({
-  start,
-  startGame,
-  endGame,
-}: PowerButtonProps) {
+export default function PowerButton() {
+  const start = useSelector((state: RootState) => state.game.gameState.start);
+  const dispatch = useDispatch<AppDispatch>();
   return (
     <button
       onClick={() => {
         if (start) {
-          endGame();
+          dispatch(endGame());
+          console.log('ended');
         } else {
-          startGame();
+          dispatch(pickRandomWord());
+          dispatch(startGame());
+          console.log('started');
         }
       }}
       className={`
