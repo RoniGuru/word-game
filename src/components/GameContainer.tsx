@@ -117,7 +117,7 @@ export default function GameContainer() {
               score: {game.score} highScore: {game.highScore}
             </div>
             <div className="text-8xl  w-1/3" data-testid="time">
-              {time + ' ' + game.lives}
+              {time}
             </div>
             <div className="text-4xl w-1/3 flex flex-row gap-5 justify-center">
               {Array.from({ length: game.lives }, (_, index) => (
