@@ -30,7 +30,9 @@ export default function GameContainer() {
   const dispatch = useDispatch<AppDispatch>();
 
   const [bootAnimation, setBootAnimation] = useState<boolean>(false);
+
   const [loadingText, setLoadingText] = useState<string>('');
+
   const bootText = 'loading...';
 
   useEffect(() => {

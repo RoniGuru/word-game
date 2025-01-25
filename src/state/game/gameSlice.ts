@@ -19,8 +19,8 @@ interface gameState {
 export const initialState: gameState = {
   gameState: {
     start: false,
-    highScore: localStorage.getItem('highscore')
-      ? Number(localStorage.getItem('highscore'))
+    highScore: localStorage.getItem('highScore')
+      ? Number(localStorage.getItem('highScore'))
       : 0,
     isAnimating: false,
     score: 0,
