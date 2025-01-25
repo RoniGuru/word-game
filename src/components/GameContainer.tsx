@@ -59,6 +59,12 @@ export default function GameContainer() {
   }, [game.word]);
 
   useEffect(() => {
+    if (game.lives === 0) {
+      dispatch(endGame());
+    }
+  }, [game.lives]);
+
+  useEffect(() => {
     let solvedWord = game.solved.join('');
 
     if (solvedWord === game.word) {
