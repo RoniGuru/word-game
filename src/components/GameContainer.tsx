@@ -123,7 +123,7 @@ export default function GameContainer() {
               ))}
             </div>
           </div>
-          <div className=" h-1/2d">
+          <div className=" h-3/4  flex flex-col justify-between">
             <div className="text-6xl" data-testid="category">
               {game.category}
             </div>
@@ -138,7 +138,7 @@ export default function GameContainer() {
                 </div>
               ))}
             </div>
-            <div className="text-8xl h-1/8 w-1/8 bg-blue-50">{game.key} </div>
+            <div className="text-8xl  ">{game.key || '\u00A0'}</div>
           </div>
         </>
       )}
