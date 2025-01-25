@@ -24,7 +24,7 @@ export const initialState: gameState = {
       : 0,
     isAnimating: false,
     score: 0,
-    lives: 0,
+    lives: 5,
     category: '',
     solved: [],
     word: '',

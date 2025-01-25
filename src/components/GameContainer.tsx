@@ -9,6 +9,7 @@ import {
   checkWord,
   updateScore,
   startGame,
+  pickRandomWord,
 } from '../state/game/gameSlice';
 
 export default function GameContainer() {
@@ -58,15 +59,14 @@ export default function GameContainer() {
   }, [game.word]);
 
   useEffect(() => {
-    dispatch(checkWord());
     let solvedWord = game.solved.join('');
 
     if (solvedWord === game.word) {
       dispatch(updateScore(game.score + 1));
-
+      dispatch(pickRandomWord());
       dispatch(startGame());
     }
-  }, [game.word, game.key, game.solved]);
+  }, [game.solved]);
 
   function isAlphabet(key: string): boolean {
     return /^[A-Za-z]$/.test(key);
@@ -109,7 +109,7 @@ export default function GameContainer() {
               score: {game.score} highScore: {game.highScore}
             </div>
             <div className="text-8xl  w-1/3" data-testid="time">
-              {time}
+              {time + ' ' + game.lives}
             </div>
             <div className="text-4xl w-1/3 flex flex-row gap-5 justify-center">
               {Array.from({ length: game.lives }, (_, index) => (
