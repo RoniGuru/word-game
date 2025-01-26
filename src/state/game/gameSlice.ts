@@ -3,8 +3,8 @@ import { words, WordCategories } from '../../data/words';
 interface gameData {
   on: boolean;
   start: boolean;
+  end: boolean;
   highScore: number;
-
   score: number;
   lives: number;
   category: string;
@@ -21,6 +21,7 @@ export const initialState: gameState = {
   gameState: {
     on: false,
     start: false,
+    end: false,
     highScore: localStorage.getItem('highScore')
       ? Number(localStorage.getItem('highScore'))
       : 0,
@@ -44,12 +45,14 @@ const gameSlice = createSlice({
 
     startGame: (state) => {
       state.gameState.start = true;
+      state.gameState.end = false;
       state.gameState.key = '';
+      state.gameState.score = 0;
     },
     endGame: (state) => {
-      state.gameState.score = 0;
       state.gameState.lives = 5;
       state.gameState.start = false;
+      state.gameState.end = true;
     },
     checkWord: (state) => {
       let temp: string[] = state.gameState.solved;

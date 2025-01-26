@@ -47,7 +47,6 @@ export default function GameContainer() {
     if (solvedWord === game.word) {
       dispatch(updateScore(game.score + 1));
       dispatch(pickRandomWord());
-      dispatch(startGame());
     }
   }, [game.solved]);
 
@@ -78,11 +77,7 @@ export default function GameContainer() {
   }, [handleKeyPress]);
 
   return (
-    <div
-      className={`gameContainer flex flex-col justify-between  
-   
-       ${game.start ? 'visible' : 'invisible'}`}
-    >
+    <div className={`gameContainer flex flex-col justify-between  `}>
       <div className="flex flex-row justify-between text-center ">
         <div className="text-4xl w-1/3" data-testid="score">
           score: {game.score} highScore: {game.highScore}

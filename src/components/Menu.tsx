@@ -11,7 +11,7 @@ export default function Menu() {
   const bootText = 'loading...';
 
   useEffect(() => {
-    if (game.on) {
+    if (game.on && !game.end) {
       setBootAnimation(true);
       let currentIndex = 0;
       const interval = setInterval(() => {
@@ -35,13 +35,25 @@ export default function Menu() {
         {bootAnimation ? (
           <div>{loadingText}</div>
         ) : (
-          <div className="min-h-full flex justify-center items-center ">
-            <button
-              onClick={() => dispatch(startGame())}
-              className="menuButton w-1/6"
-            >
-              start the game
-            </button>
+          <div className="min-h-full flex justify-center items-center flex-col gap-16 ">
+            {game.end ? (
+              <>
+                <div className="text-6xl">You got a score of {game.score}</div>
+                <button
+                  onClick={() => dispatch(startGame())}
+                  className="menuButton w-1/6"
+                >
+                  start the game again
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={() => dispatch(startGame())}
+                className="menuButton w-1/6"
+              >
+                start the game
+              </button>
+            )}
           </div>
         )}
       </div>
