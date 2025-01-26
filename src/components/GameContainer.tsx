@@ -79,9 +79,9 @@ export default function GameContainer() {
 
   return (
     <div
-      className={`gameContainer flex flex-col justify-between  ${
-        game.isAnimating ? 'turnOn' : 'turnOff'
-      }  ${game.start ? 'visible' : 'invisible'}`}
+      className={`gameContainer flex flex-col justify-between  
+   
+       ${game.start ? 'visible' : 'invisible'}`}
     >
       <div className="flex flex-row justify-between text-center ">
         <div className="text-4xl w-1/3" data-testid="score">

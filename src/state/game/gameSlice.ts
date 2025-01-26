@@ -4,7 +4,7 @@ interface gameData {
   on: boolean;
   start: boolean;
   highScore: number;
-  isAnimating: boolean;
+
   score: number;
   lives: number;
   category: string;
@@ -24,7 +24,7 @@ export const initialState: gameState = {
     highScore: localStorage.getItem('highScore')
       ? Number(localStorage.getItem('highScore'))
       : 0,
-    isAnimating: false,
+
     score: 0,
     lives: 5,
     category: '',
@@ -43,13 +43,10 @@ const gameSlice = createSlice({
     },
 
     startGame: (state) => {
-      state.gameState.isAnimating = true;
-      state.gameState.on = true;
+      state.gameState.start = true;
       state.gameState.key = '';
     },
     endGame: (state) => {
-      state.gameState.isAnimating = false;
-
       state.gameState.score = 0;
       state.gameState.lives = 5;
       state.gameState.start = false;
