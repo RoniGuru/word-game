@@ -1,20 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../state/store';
-import { endGame, startGame, pickRandomWord } from '../state/game/gameSlice';
+import { turnOnOff } from '../state/game/gameSlice';
 
 export default function PowerButton() {
-  const start = useSelector((state: RootState) => state.game.gameState.start);
+  const on = useSelector((state: RootState) => state.game.gameState.on);
   const dispatch = useDispatch<AppDispatch>();
   return (
     <button
       onClick={() => {
-        if (start) {
-          dispatch(endGame());
-          console.log('ended');
+        if (on) {
+          dispatch(turnOnOff(false));
+          console.log('closed');
         } else {
-          dispatch(pickRandomWord());
-          dispatch(startGame());
-          console.log('started');
+          dispatch(turnOnOff(true));
+          console.log('on');
         }
       }}
       className={`
@@ -24,11 +23,11 @@ export default function PowerButton() {
       flex items-center justify-center 
       transition-all duration-300
       ${
-        start
+        on
           ? 'bg-gradient-to-b from-red-500 to-red-700'
           : 'bg-gradient-to-b from-gray-700 to-gray-900'
       }
-      ${start ? 'shadow-inner scale-95' : 'shadow-lg hover:scale-105'}
+      ${on ? 'shadow-inner scale-95' : 'shadow-lg hover:scale-105'}
       transform
     `}
       aria-label="Power button"
@@ -38,7 +37,7 @@ export default function PowerButton() {
         className={`
       absolute inset-0 rounded-full
       transition-opacity duration-300
-      ${start ? 'opacity-100' : 'opacity-0'}
+      ${on ? 'opacity-100' : 'opacity-0'}
       bg-red-500 blur-lg
     `}
       />
@@ -67,8 +66,8 @@ export default function PowerButton() {
       w-16 h-16 
       flex items-center justify-center
       transition-all duration-300
-      ${start ? 'text-white' : 'text-gray-300'}
-      ${start ? 'scale-90' : 'scale-100'}
+      ${on ? 'text-white' : 'text-gray-300'}
+      ${on ? 'scale-90' : 'scale-100'}
     `}
       >
         <svg
@@ -79,7 +78,7 @@ export default function PowerButton() {
           className={`
           w-full h-full
           transition-transform duration-300
-          ${start ? 'opacity-100' : 'opacity-80'}
+          ${on ? 'opacity-100' : 'opacity-80'}
         `}
         >
           <path

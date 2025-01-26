@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { words, WordCategories } from '../../data/words';
 interface gameData {
+  on: boolean;
   start: boolean;
   highScore: number;
   isAnimating: boolean;
@@ -18,6 +19,7 @@ interface gameState {
 
 export const initialState: gameState = {
   gameState: {
+    on: false,
     start: false,
     highScore: localStorage.getItem('highScore')
       ? Number(localStorage.getItem('highScore'))
@@ -36,17 +38,21 @@ const gameSlice = createSlice({
   name: 'game',
   initialState,
   reducers: {
+    turnOnOff: (state, action: PayloadAction<boolean>) => {
+      state.gameState.on = action.payload;
+    },
+
     startGame: (state) => {
       state.gameState.isAnimating = true;
-      state.gameState.start = true;
+      state.gameState.on = true;
       state.gameState.key = '';
     },
     endGame: (state) => {
       state.gameState.isAnimating = false;
 
-      state.gameState.start = false;
       state.gameState.score = 0;
       state.gameState.lives = 5;
+      state.gameState.start = false;
     },
     checkWord: (state) => {
       let temp: string[] = state.gameState.solved;
@@ -114,5 +120,6 @@ export const {
   createSolved,
   setKey,
   updateScore,
+  turnOnOff,
 } = gameSlice.actions;
 export default gameSlice.reducer;

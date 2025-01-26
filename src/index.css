@@ -28,25 +28,22 @@
   height: 100%;
   width: 100%;
   padding: 10px;
-  color: white;
+
   background-color: black;
   color: #2ecc71;
   text-shadow: 0 0 8px rgba(46, 204, 113, 0.6);
 }
 
-.turnOn {
+.menu {
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+
   background-color: black;
+  color: #2ecc71;
 }
 
-.turnOff {
-  background-color: black;
-}
-
-.gameDot {
-  background-color: #7cfc00;
-  transition: background-color 0.4s ease-in;
-}
-
-.bg-light {
-  background-color: #7cfc00;
+.menuButton:hover {
+  background-color: #2ecc71;
+  color: black;
 }
