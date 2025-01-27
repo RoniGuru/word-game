@@ -8,7 +8,6 @@ import {
   setKey,
   checkWord,
   updateScore,
-  startGame,
   pickRandomWord,
 } from '../state/game/gameSlice';
 
