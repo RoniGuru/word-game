@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../state/store';
-import { endGame, turnOnOff } from '../state/game/gameSlice';
+import { turnOnOff } from '../state/game/gameSlice';
 
 export default function PowerButton() {
   const on = useSelector((state: RootState) => state.game.gameState.on);
@@ -10,12 +10,8 @@ export default function PowerButton() {
       onClick={() => {
         if (on) {
           dispatch(turnOnOff(false));
-          dispatch(endGame());
-          console.log('closed');
         } else {
           dispatch(turnOnOff(true));
-
-          console.log('on');
         }
       }}
       className={`

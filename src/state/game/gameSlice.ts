@@ -41,6 +41,11 @@ const gameSlice = createSlice({
   reducers: {
     turnOnOff: (state, action: PayloadAction<boolean>) => {
       state.gameState.on = action.payload;
+      if (action.payload === false) {
+        state.gameState.start = false;
+        state.gameState.end = false;
+        state.gameState.lives = 5;
+      }
     },
 
     startGame: (state) => {
@@ -58,7 +63,10 @@ const gameSlice = createSlice({
       let temp: string[] = state.gameState.solved;
       let present = false;
       for (let i = 0; i < state.gameState.word.length; i++) {
-        if (state.gameState.word[i] === state.gameState.key.toLowerCase()) {
+        if (
+          state.gameState.word[i].toLowerCase() ===
+          state.gameState.key.toLowerCase()
+        ) {
           temp[i] = state.gameState.key.toLowerCase();
 
           present = true;

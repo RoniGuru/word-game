@@ -43,7 +43,7 @@ export default function Menu() {
                   onClick={() => dispatch(startGame())}
                   className="menuButton w-1/6"
                 >
-                  start the game again
+                  play the game again
                 </button>
               </>
             ) : (
