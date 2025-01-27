@@ -43,7 +43,7 @@ export default function GameContainer() {
   useEffect(() => {
     let solvedWord = game.solved.join('');
 
-    if (solvedWord === game.word) {
+    if (solvedWord.toLowerCase() === game.word.toLowerCase()) {
       dispatch(updateScore(game.score + 1));
       dispatch(pickRandomWord());
     }

@@ -95,6 +95,7 @@ const gameSlice = createSlice({
       let emptyCount =
         state.gameState.word.length -
         Math.floor(state.gameState.word.length / 3);
+      console.log(emptyCount);
       for (let i = 0; i < state.gameState.word.length; i++) {
         random = Math.floor(Math.random() * 100);
         if (random >= 70 && emptyCount != 0) {
@@ -104,6 +105,7 @@ const gameSlice = createSlice({
           array.push('_');
         }
       }
+      console.log(emptyCount);
       state.gameState.solved = array;
     },
 
