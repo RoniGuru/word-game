@@ -127,6 +127,9 @@ const gameSlice = createSlice({
       temp = temp.filter((word) => word !== action.payload);
       state.gameState.words = temp;
     },
+    backToStart: (state) => {
+      state.gameState.end = false;
+    },
   },
 });
 
@@ -141,5 +144,6 @@ export const {
   turnOnOff,
   setCategoryAndWords,
   removeWord,
+  backToStart,
 } = gameSlice.actions;
 export default gameSlice.reducer;

@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../state/store';
-import { setCategoryAndWords, startGame } from '../state/game/gameSlice';
+import {
+  backToStart,
+  setCategoryAndWords,
+  startGame,
+} from '../state/game/gameSlice';
 export default function Menu() {
   const game = useSelector((state: RootState) => state.game.gameState);
   const wordBank = useSelector((state: RootState) => state.wordBank);
@@ -54,28 +58,37 @@ export default function Menu() {
           <div>{loadingText}</div>
         ) : (
           <div className="min-h-full flex justify-center items-center flex-col gap-16 ">
-            <div>{selectedCategory}</div>
-            <select
-              className="categorySelect text-3xl"
-              onChange={(e) => setSelectedCategory(e.target.value)}
-            >
-              {Object.keys(wordBank).map((category) => (
-                <option value={category} key={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
             {game.end ? (
               <>
                 <div className="text-6xl">You got a score of {game.score}</div>
-                <button onClick={playGame} className="menuButton w-1/6">
-                  play the game again
-                </button>
+                <div className="flex  flex-col justify-center   text-center w-1/4 text-2xl  ">
+                  <button onClick={playGame} className="menuButton ">
+                    play the game again
+                  </button>
+                  <button
+                    onClick={() => dispatch(backToStart())}
+                    className="menuButton "
+                  >
+                    back to start
+                  </button>
+                </div>
               </>
             ) : (
-              <button onClick={playGame} className="menuButton w-1/6">
-                start the game
-              </button>
+              <>
+                <select
+                  className="categorySelect text-3xl"
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                >
+                  {Object.keys(wordBank).map((category) => (
+                    <option value={category} key={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>{' '}
+                <button onClick={playGame} className="menuButton w-1/6">
+                  start the game
+                </button>
+              </>
             )}
           </div>
         )}
