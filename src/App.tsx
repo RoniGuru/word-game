@@ -2,7 +2,7 @@ import { Provider } from 'react-redux';
 import store from './state/store.ts';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/Home.tsx';
-import CreateWordBankPage from './pages/CreateWordBank.tsx';
+import WordBankPage from './pages/CreateWordBank.tsx';
 import RootLayout from './pages/RootLayout.tsx';
 
 function App() {
@@ -22,7 +22,7 @@ function App() {
             path="/createWordBank"
             element={
               <RootLayout>
-                <CreateWordBankPage />
+                <WordBankPage />
               </RootLayout>
             }
           />
