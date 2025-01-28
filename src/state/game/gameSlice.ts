@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { words, WordCategories } from '../../data/words';
+
 interface gameData {
   on: boolean;
   start: boolean;
@@ -8,6 +8,7 @@ interface gameData {
   score: number;
   lives: number;
   category: string;
+  words: string[];
   solved: string[];
   word: string;
   key: string;
@@ -25,10 +26,10 @@ export const initialState: gameState = {
     highScore: localStorage.getItem('highScore')
       ? Number(localStorage.getItem('highScore'))
       : 0,
-
     score: 0,
     lives: 5,
     category: '',
+    words: [],
     solved: [],
     word: '',
     key: '',
@@ -78,14 +79,9 @@ const gameSlice = createSlice({
       }
     },
     pickRandomWord: (state) => {
-      const categories = Object.keys(words) as (keyof WordCategories)[];
-      let randCategory =
-        categories[Math.floor(Math.random() * categories.length)];
-      state.gameState.category = String(randCategory);
-
       const randomWord =
-        words[randCategory][
-          Math.floor(Math.random() * words[randCategory].length)
+        state.gameState.words[
+          Math.floor(Math.random() * state.gameState.words.length)
         ];
       state.gameState.word = randomWord;
     },
@@ -119,6 +115,13 @@ const gameSlice = createSlice({
     setKey: (state, action: PayloadAction<string>) => {
       state.gameState.key = action.payload;
     },
+    setCategoryAndWords: (
+      state,
+      action: PayloadAction<{ category: string; words: string[] }>
+    ) => {
+      state.gameState.category = action.payload.category;
+      state.gameState.words = action.payload.words;
+    },
   },
 });
 
@@ -131,5 +134,6 @@ export const {
   setKey,
   updateScore,
   turnOnOff,
+  setCategoryAndWords,
 } = gameSlice.actions;
 export default gameSlice.reducer;
