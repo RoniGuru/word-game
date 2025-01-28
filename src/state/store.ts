@@ -1,10 +1,14 @@
-import gameSliceReducer from './game/gameSlice';
 import { configureStore } from '@reduxjs/toolkit';
-import wordSliceReducer from './word/wordSlice';
 
-export const store = configureStore({
-  reducer: { game: gameSliceReducer, word: wordSliceReducer },
+import { saveToLocalStorage } from './middleware/saveToLocalStorage';
+import rootReducer from './reducers';
+
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(saveToLocalStorage),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+export default store;
