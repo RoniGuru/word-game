@@ -13,11 +13,6 @@
   transition: 0.2s ease-in;
 }
 
-.game {
-  width: 100%;
-  height: 88vh;
-}
-
 .startButton {
   padding: 20px;
 

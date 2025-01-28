@@ -1,3 +1,3 @@
 export default function CreateWordBankPage() {
-  return <div>create word bank</div>;
+  return <div className="gameContainer">create word</div>;
 }
