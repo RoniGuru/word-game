@@ -1,13 +1,14 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../state/store';
 import { useState } from 'react';
-import { removeWordFromBank } from '../state/word/wordSlice';
+import { removeWordFromBank, addWordBank } from '../state/word/wordSlice';
 
 export default function WordBank() {
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
   const [deleting, setDeleting] = useState(false);
   const wordBanks = useSelector((state: RootState) => state.wordBank);
   const dispatch = useDispatch<AppDispatch>();
+  const [newWord, setNewWord] = useState('');
 
   function goToNextCategory() {
     setCurrentCategoryIndex(
@@ -24,6 +25,12 @@ export default function WordBank() {
 
   function handleWordRemoval(word: string) {
     dispatch(removeWordFromBank({ category: currentCategory, word }));
+  }
+
+  function handleAddWord(word: string) {
+    if (word.length !== 0) {
+      dispatch(addWordBank({ category: currentCategory, word }));
+    }
   }
 
   return (
@@ -44,8 +51,19 @@ export default function WordBank() {
           &rarr;
         </button>
       </div>
+      <div className="flex  flex-col">
+        <input
+          onChange={(e) => setNewWord(e.target.value)}
+          value={newWord}
+          placeholder="new word"
+          className="textInput"
+        />
+        <button onClick={() => handleAddWord(newWord)} className="hoverStyle">
+          Add Word
+        </button>
+      </div>
 
-      <div className="h-1/3  w-1/2">
+      <div className="h-1/3  w-1/2 wordsContainer">
         <ul className="flex flex-row gap-2 flex-wrap   ">
           {deleting
             ? wordBanks[currentCategory].map((word, index) => (
@@ -72,8 +90,6 @@ export default function WordBank() {
       >
         setDelete
       </button>
-      <button>saveWordBank</button>
-      <button>resetWordBank</button>
     </>
   );
 }

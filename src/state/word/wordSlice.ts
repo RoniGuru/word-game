@@ -124,7 +124,7 @@ const wordBanksSlice = createSlice({
       state[category] = words;
     },
 
-    addWord: (
+    addWordBank: (
       state,
       action: PayloadAction<{ category: string; word: string }>
     ) => {
@@ -153,7 +153,7 @@ const wordBanksSlice = createSlice({
 });
 
 // Export the actions
-export const { addCategory, addWord, removeCategory, removeWordFromBank } =
+export const { addCategory, addWordBank, removeCategory, removeWordFromBank } =
   wordBanksSlice.actions;
 
 // Export the reducer
