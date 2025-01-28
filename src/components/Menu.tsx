@@ -6,6 +6,8 @@ import {
   setCategoryAndWords,
   startGame,
 } from '../state/game/gameSlice';
+import { useNavigate } from 'react-router-dom';
+
 export default function Menu() {
   const game = useSelector((state: RootState) => state.game.gameState);
   const wordBank = useSelector((state: RootState) => state.wordBank);
@@ -15,6 +17,8 @@ export default function Menu() {
   const [loadingText, setLoadingText] = useState<string>('');
   const dispatch = useDispatch<AppDispatch>();
   const bootText = 'loading...';
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (game.on && !game.end) {
@@ -84,9 +88,15 @@ export default function Menu() {
                       {category}
                     </option>
                   ))}
-                </select>{' '}
+                </select>
                 <button onClick={playGame} className="menuButton w-1/6">
                   start the game
+                </button>
+                <button
+                  onClick={() => navigate('/createWordBank')}
+                  className="menuButton w-1/6"
+                >
+                  create WordBank
                 </button>
               </>
             )}
