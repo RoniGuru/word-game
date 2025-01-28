@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../state/store';
-import { startGame } from '../state/game/gameSlice';
+import { setCategoryAndWords, startGame } from '../state/game/gameSlice';
 export default function Menu() {
   const game = useSelector((state: RootState) => state.game.gameState);
   const wordBank = useSelector((state: RootState) => state.wordBank);
@@ -37,6 +37,16 @@ export default function Menu() {
     }
   }, [wordBank]);
 
+  function playGame() {
+    dispatch(
+      setCategoryAndWords({
+        category: selectedCategory,
+        words: wordBank[selectedCategory],
+      })
+    );
+    dispatch(startGame());
+  }
+
   return (
     <div className="menu ">
       <div className="min-h-full h-full">
@@ -50,24 +60,20 @@ export default function Menu() {
               onChange={(e) => setSelectedCategory(e.target.value)}
             >
               {Object.keys(wordBank).map((category) => (
-                <option value={category}>{category}</option>
+                <option value={category} key={category}>
+                  {category}
+                </option>
               ))}
             </select>
             {game.end ? (
               <>
                 <div className="text-6xl">You got a score of {game.score}</div>
-                <button
-                  onClick={() => dispatch(startGame())}
-                  className="menuButton w-1/6"
-                >
+                <button onClick={playGame} className="menuButton w-1/6">
                   play the game again
                 </button>
               </>
             ) : (
-              <button
-                onClick={() => dispatch(startGame())}
-                className="menuButton w-1/6"
-              >
+              <button onClick={playGame} className="menuButton w-1/6">
                 start the game
               </button>
             )}
