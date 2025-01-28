@@ -9,6 +9,7 @@ import {
   checkWord,
   updateScore,
   pickRandomWord,
+  removeWord,
 } from '../state/game/gameSlice';
 
 export default function GameContainer() {
@@ -45,6 +46,7 @@ export default function GameContainer() {
 
     if (solvedWord.toLowerCase() === game.word.toLowerCase()) {
       dispatch(updateScore(game.score + 1));
+      dispatch(removeWord(game.word));
       dispatch(pickRandomWord());
     }
   }, [game.solved]);
@@ -84,6 +86,7 @@ export default function GameContainer() {
         <div className="text-8xl  w-1/3" data-testid="time">
           {time}
         </div>
+
         <div className="text-4xl w-1/3 flex flex-row gap-5 justify-center">
           {Array.from({ length: game.lives }, (_, index) => (
             <FaHeart key={index} data-testid="heart-icon" />

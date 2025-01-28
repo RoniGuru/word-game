@@ -122,6 +122,11 @@ const gameSlice = createSlice({
       state.gameState.category = action.payload.category;
       state.gameState.words = action.payload.words;
     },
+    removeWord: (state, action: PayloadAction<string>) => {
+      let temp = state.gameState.words;
+      temp = temp.filter((word) => word !== action.payload);
+      state.gameState.words = temp;
+    },
   },
 });
 
@@ -135,5 +140,6 @@ export const {
   updateScore,
   turnOnOff,
   setCategoryAndWords,
+  removeWord,
 } = gameSlice.actions;
 export default gameSlice.reducer;
