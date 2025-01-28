@@ -1,15 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../state/store';
 import { turnOnOff } from '../state/game/gameSlice';
+import { useNavigate } from 'react-router-dom';
 
 export default function PowerButton() {
   const on = useSelector((state: RootState) => state.game.gameState.on);
   const dispatch = useDispatch<AppDispatch>();
+
+  const navigate = useNavigate();
   return (
     <button
       onClick={() => {
         if (on) {
           dispatch(turnOnOff(false));
+          navigate('/');
         } else {
           dispatch(turnOnOff(true));
         }
