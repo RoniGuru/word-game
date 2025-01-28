@@ -99,6 +99,7 @@ const basic: wordBanksState = {
 const loadStateFromLocalStorage = (): wordBanksState => {
   try {
     const serializedState = localStorage.getItem('wordBanks');
+    console.log(serializedState);
     if (serializedState === null) {
       return basic;
     }

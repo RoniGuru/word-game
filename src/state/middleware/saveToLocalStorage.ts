@@ -6,7 +6,7 @@ export const saveToLocalStorage: Middleware = (store) => (next) => (action) => {
   try {
     const currentState = store.getState();
 
-    const wordBanksState = currentState.wordBanks;
+    const wordBanksState = currentState.wordBank;
 
     localStorage.setItem('wordBanks', JSON.stringify(wordBanksState));
   } catch (e) {
