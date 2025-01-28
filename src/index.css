@@ -47,3 +47,11 @@
   background-color: #2ecc71;
   color: black;
 }
+
+.categorySelect {
+  background-color: black;
+}
+.categorySelect:hover {
+  background-color: #2ecc71;
+  color: black;
+}

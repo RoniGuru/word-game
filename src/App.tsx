@@ -1,7 +1,7 @@
 import NavBar from './components/NavBar';
 import Game from './components/Game';
 import { Provider } from 'react-redux';
-import { store } from './state/store.ts';
+import store from './state/store.ts';
 
 function App() {
   return (

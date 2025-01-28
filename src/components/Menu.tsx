@@ -4,7 +4,9 @@ import { AppDispatch, RootState } from '../state/store';
 import { startGame } from '../state/game/gameSlice';
 export default function Menu() {
   const game = useSelector((state: RootState) => state.game.gameState);
+  const wordBank = useSelector((state: RootState) => state.wordBank);
   const [bootAnimation, setBootAnimation] = useState<boolean>(false);
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   const [loadingText, setLoadingText] = useState<string>('');
   const dispatch = useDispatch<AppDispatch>();
@@ -29,6 +31,12 @@ export default function Menu() {
     }
   }, []);
 
+  useEffect(() => {
+    if (Object.keys(wordBank).length > 0) {
+      setSelectedCategory(Object.keys(wordBank)[0]);
+    }
+  }, [wordBank]);
+
   return (
     <div className="menu ">
       <div className="min-h-full h-full">
@@ -36,6 +44,15 @@ export default function Menu() {
           <div>{loadingText}</div>
         ) : (
           <div className="min-h-full flex justify-center items-center flex-col gap-16 ">
+            <div>{selectedCategory}</div>
+            <select
+              className="categorySelect text-3xl"
+              onChange={(e) => setSelectedCategory(e.target.value)}
+            >
+              {Object.keys(wordBank).map((category) => (
+                <option value={category}>{category}</option>
+              ))}
+            </select>
             {game.end ? (
               <>
                 <div className="text-6xl">You got a score of {game.score}</div>
