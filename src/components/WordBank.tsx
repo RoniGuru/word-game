@@ -1,7 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../state/store';
 import { useState } from 'react';
-import { removeWordFromBank, addWordBank } from '../state/word/wordSlice';
+import {
+  removeWordFromBank,
+  addWordToBank,
+  addCategory,
+} from '../state/word/wordSlice';
 
 export default function WordBank() {
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
@@ -9,6 +13,7 @@ export default function WordBank() {
   const wordBanks = useSelector((state: RootState) => state.wordBank);
   const dispatch = useDispatch<AppDispatch>();
   const [newWord, setNewWord] = useState('');
+  const [name, setName] = useState('');
 
   function goToNextCategory() {
     setCurrentCategoryIndex(
@@ -29,12 +34,33 @@ export default function WordBank() {
 
   function handleAddWord(word: string) {
     if (word.length !== 0) {
-      dispatch(addWordBank({ category: currentCategory, word }));
+      dispatch(addWordToBank({ category: currentCategory, word }));
+    }
+  }
+
+  function handleCreateWordBank(name: string) {
+    console.log(name);
+    if (name.length !== 0) {
+      dispatch(addCategory(name));
     }
   }
 
   return (
     <>
+      <div className="flex  flex-col">
+        <input
+          onChange={(e) => setName(e.target.value)}
+          value={name}
+          placeholder="create new bank"
+          className="textInput"
+        />
+        <button
+          onClick={() => handleCreateWordBank(name)}
+          className="hoverStyle"
+        >
+          Create Word Bank
+        </button>
+      </div>
       <div className="flex items-center justify-between w-1/4 ">
         <button
           onClick={goToPreviousCategory}

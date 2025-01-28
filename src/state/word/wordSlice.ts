@@ -116,15 +116,11 @@ const wordBanksSlice = createSlice({
   name: 'wordBanks',
   initialState,
   reducers: {
-    addCategory: (
-      state,
-      action: PayloadAction<{ category: string; words: string[] }>
-    ) => {
-      const { category, words } = action.payload;
-      state[category] = words;
+    addCategory: (state, action: PayloadAction<string>) => {
+      state[action.payload] = [];
     },
 
-    addWordBank: (
+    addWordToBank: (
       state,
       action: PayloadAction<{ category: string; word: string }>
     ) => {
@@ -153,8 +149,12 @@ const wordBanksSlice = createSlice({
 });
 
 // Export the actions
-export const { addCategory, addWordBank, removeCategory, removeWordFromBank } =
-  wordBanksSlice.actions;
+export const {
+  addCategory,
+  addWordToBank,
+  removeCategory,
+  removeWordFromBank,
+} = wordBanksSlice.actions;
 
 // Export the reducer
 export default wordBanksSlice.reducer;
