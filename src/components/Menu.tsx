@@ -6,7 +6,8 @@ import {
   setCategoryAndWords,
   startGame,
 } from '../state/game/gameSlice';
-import { useNavigate } from 'react-router-dom';
+
+import StartScreen from './StartScreen';
 
 export default function Menu() {
   const game = useSelector((state: RootState) => state.game.gameState);
@@ -17,8 +18,6 @@ export default function Menu() {
   const [loadingText, setLoadingText] = useState<string>('');
   const dispatch = useDispatch<AppDispatch>();
   const bootText = 'loading...';
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (game.on && !game.end) {
@@ -45,11 +44,11 @@ export default function Menu() {
     }
   }, [wordBank]);
 
-  function playGame() {
+  function playGame(category: string, words: string[]) {
     dispatch(
       setCategoryAndWords({
-        category: selectedCategory,
-        words: wordBank[selectedCategory],
+        category,
+        words,
       })
     );
     dispatch(startGame());
@@ -66,7 +65,12 @@ export default function Menu() {
               <>
                 <div className="text-6xl">You got a score of {game.score}</div>
                 <div className="flex  flex-col justify-center   text-center w-1/4 text-2xl  ">
-                  <button onClick={playGame} className="menuButton ">
+                  <button
+                    onClick={() =>
+                      playGame(selectedCategory, wordBank[selectedCategory])
+                    }
+                    className="menuButton "
+                  >
                     play the game again
                   </button>
                   <button
@@ -78,27 +82,7 @@ export default function Menu() {
                 </div>
               </>
             ) : (
-              <>
-                <select
-                  className="categorySelect text-3xl"
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                >
-                  {Object.keys(wordBank).map((category) => (
-                    <option value={category} key={category}>
-                      {category}
-                    </option>
-                  ))}
-                </select>
-                <button onClick={playGame} className="menuButton w-1/6">
-                  start the game
-                </button>
-                <button
-                  onClick={() => navigate('/createWordBank')}
-                  className="menuButton w-1/6"
-                >
-                  create WordBank
-                </button>
-              </>
+              <StartScreen playGame={playGame} />
             )}
           </div>
         )}
