@@ -8,6 +8,7 @@ import {
 } from '../state/game/gameSlice';
 
 import StartScreen from './StartScreen';
+import EndScreen from './EndScreen';
 
 export default function Menu() {
   const game = useSelector((state: RootState) => state.game.gameState);
@@ -62,25 +63,10 @@ export default function Menu() {
         ) : (
           <div className="min-h-full flex justify-center items-center flex-col gap-16 ">
             {game.end ? (
-              <>
-                <div className="text-6xl">You got a score of {game.score}</div>
-                <div className="flex  flex-col justify-center   text-center w-1/4 text-2xl  ">
-                  <button
-                    onClick={() =>
-                      playGame(selectedCategory, wordBank[selectedCategory])
-                    }
-                    className="menuButton "
-                  >
-                    play the game again
-                  </button>
-                  <button
-                    onClick={() => dispatch(backToStart())}
-                    className="menuButton "
-                  >
-                    back to start
-                  </button>
-                </div>
-              </>
+              <EndScreen
+                playGame={playGame}
+                selectedCategory={selectedCategory}
+              />
             ) : (
               <StartScreen playGame={playGame} />
             )}
