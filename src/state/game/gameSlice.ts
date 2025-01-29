@@ -4,14 +4,9 @@ interface gameData {
   on: boolean;
   start: boolean;
   end: boolean;
-  highScore: number;
-  score: number;
   lives: number;
   category: string;
   words: string[];
-  solved: string[];
-  word: string;
-  key: string;
 }
 
 interface gameState {
@@ -23,16 +18,9 @@ export const initialState: gameState = {
     on: false,
     start: false,
     end: false,
-    highScore: localStorage.getItem('highScore')
-      ? Number(localStorage.getItem('highScore'))
-      : 0,
-    score: 0,
     lives: 5,
     category: '',
     words: [],
-    solved: [],
-    word: '',
-    key: '',
   },
 };
 
@@ -52,69 +40,13 @@ const gameSlice = createSlice({
     startGame: (state) => {
       state.gameState.start = true;
       state.gameState.end = false;
-      state.gameState.key = '';
-      state.gameState.score = 0;
     },
     endGame: (state) => {
       state.gameState.lives = 5;
       state.gameState.start = false;
       state.gameState.end = true;
     },
-    checkWord: (state) => {
-      let temp: string[] = state.gameState.solved;
-      let present = false;
-      for (let i = 0; i < state.gameState.word.length; i++) {
-        if (
-          state.gameState.word[i].toLowerCase() ===
-          state.gameState.key.toLowerCase()
-        ) {
-          temp[i] = state.gameState.key.toLowerCase();
 
-          present = true;
-        }
-      }
-      state.gameState.solved = temp;
-      if (!present) {
-        state.gameState.lives = state.gameState.lives - 1;
-      }
-    },
-    pickRandomWord: (state) => {
-      const randomWord =
-        state.gameState.words[
-          Math.floor(Math.random() * state.gameState.words.length)
-        ];
-      state.gameState.word = randomWord;
-    },
-    createSolved: (state) => {
-      let array = [];
-      let random = 0;
-      let emptyCount =
-        state.gameState.word.length -
-        Math.floor(state.gameState.word.length / 3);
-      console.log(emptyCount);
-      for (let i = 0; i < state.gameState.word.length; i++) {
-        random = Math.floor(Math.random() * 100);
-        if (random >= 70 && emptyCount != 0) {
-          array.push(state.gameState.word[i]);
-          emptyCount--;
-        } else {
-          array.push('_');
-        }
-      }
-      console.log(emptyCount);
-      state.gameState.solved = array;
-    },
-
-    updateScore: (state, action: PayloadAction<number>) => {
-      state.gameState.score = action.payload;
-      if (action.payload > state.gameState.highScore) {
-        localStorage.setItem('highScore', String(state.gameState.score));
-        state.gameState.highScore = action.payload;
-      }
-    },
-    setKey: (state, action: PayloadAction<string>) => {
-      state.gameState.key = action.payload;
-    },
     setCategoryAndWords: (
       state,
       action: PayloadAction<{ category: string; words: string[] }>
@@ -136,11 +68,6 @@ const gameSlice = createSlice({
 export const {
   startGame,
   endGame,
-  checkWord,
-  pickRandomWord,
-  createSolved,
-  setKey,
-  updateScore,
   turnOnOff,
   setCategoryAndWords,
   removeWord,
