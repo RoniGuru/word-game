@@ -2,7 +2,7 @@ import { Provider } from 'react-redux';
 import store from './state/store.ts';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/Home.tsx';
-import WordBankPage from './pages/CreateWordBank.tsx';
+import WordBankPage from './pages/WordBanks.tsx';
 import RootLayout from './pages/RootLayout.tsx';
 
 function App() {

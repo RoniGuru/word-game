@@ -5,6 +5,7 @@ import {
   removeWordFromBank,
   addWordToBank,
   addCategory,
+  removeCategory,
 } from '../state/word/wordSlice';
 
 export default function WordBank() {
@@ -39,10 +40,13 @@ export default function WordBank() {
   }
 
   function handleCreateWordBank(name: string) {
-    console.log(name);
     if (name.length !== 0) {
       dispatch(addCategory(name));
     }
+  }
+
+  function handleDeleteWordBank() {
+    dispatch(removeCategory(currentCategory));
   }
 
   return (
@@ -77,18 +81,9 @@ export default function WordBank() {
           &rarr;
         </button>
       </div>
-      <div className="flex  flex-col">
-        <input
-          onChange={(e) => setNewWord(e.target.value)}
-          value={newWord}
-          placeholder="new word"
-          className="textInput"
-        />
-        <button onClick={() => handleAddWord(newWord)} className="hoverStyle">
-          Add Word
-        </button>
-      </div>
-
+      <button onClick={handleDeleteWordBank} className=" hoverStyle w-1/4">
+        delete {currentCategory}
+      </button>
       <div className="h-1/3  w-1/2 wordsContainer">
         <ul className="flex flex-row gap-2 flex-wrap   ">
           {deleting
@@ -105,6 +100,17 @@ export default function WordBank() {
                 <div key={index}>{word}</div>
               ))}
         </ul>
+      </div>
+      <div className="flex  flex-col">
+        <input
+          onChange={(e) => setNewWord(e.target.value)}
+          value={newWord}
+          placeholder="new word"
+          className="textInput"
+        />
+        <button onClick={() => handleAddWord(newWord)} className="hoverStyle">
+          Add Word
+        </button>
       </div>
       <button
         onClick={() => setDeleting(!deleting)}
