@@ -40,12 +40,14 @@ export default function WordBankPage() {
   function handleAddWord(word: string) {
     if (word.length !== 0) {
       dispatch(addWordToBank({ category: currentCategory, word }));
+      setNewWord('');
     }
   }
 
   function handleCreateWordBank(name: string) {
     if (name.length !== 0) {
       dispatch(addCategory(name));
+      setName('');
     }
   }
 
@@ -62,7 +64,7 @@ export default function WordBankPage() {
         <input
           onChange={(e) => setName(e.target.value)}
           value={name}
-          placeholder="enter word"
+          placeholder=""
           className="textInput text-center w-full"
         />
         <button

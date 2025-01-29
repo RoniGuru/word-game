@@ -51,7 +51,7 @@ export default function StartScreen({
         start the game
       </button>
       <button
-        onClick={() => navigate('/createWordBank')}
+        onClick={() => navigate('/WordBank')}
         className="menuButton w-1/3"
       >
         create WordBank
