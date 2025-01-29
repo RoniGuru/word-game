@@ -4,7 +4,7 @@ interface gameData {
   on: boolean;
   start: boolean;
   end: boolean;
-  lives: number;
+
   category: string;
   words: string[];
 }
@@ -18,7 +18,7 @@ export const initialState: gameState = {
     on: false,
     start: false,
     end: false,
-    lives: 5,
+
     category: '',
     words: [],
   },
@@ -33,7 +33,6 @@ const gameSlice = createSlice({
       if (action.payload === false) {
         state.gameState.start = false;
         state.gameState.end = false;
-        state.gameState.lives = 5;
       }
     },
 
@@ -42,7 +41,6 @@ const gameSlice = createSlice({
       state.gameState.end = false;
     },
     endGame: (state) => {
-      state.gameState.lives = 5;
       state.gameState.start = false;
       state.gameState.end = true;
     },

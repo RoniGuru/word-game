@@ -7,6 +7,7 @@ import { endGame } from '../state/game/gameSlice';
 export default function GameContainer() {
   const [time, setTime] = useState<number>(60);
   const [key, setKey] = useState<string>('');
+  const [lives, setLives] = useState<number>(5);
   const [randomWord, setRandomWord] = useState<string>('');
 
   const game = useSelector((state: RootState) => state.game.gameState);
@@ -53,10 +54,10 @@ export default function GameContainer() {
   }, [currentWords]);
 
   useEffect(() => {
-    if (game.lives === 0) {
+    if (lives === 0) {
       dispatch(endGame());
     }
-  }, [game.lives]);
+  }, [lives]);
 
   function isAlphabet(key: string): boolean {
     return /^[A-Za-z]$/.test(key);
@@ -126,7 +127,7 @@ export default function GameContainer() {
     }
     setPlaceholder(temp);
     if (!present) {
-      game.lives = game.lives - 1;
+      setLives((prevLives) => prevLives - 1);
     }
   }
 
@@ -138,7 +139,7 @@ export default function GameContainer() {
         </div>
 
         <div className="text-4xl w-1/3 flex flex-row gap-5 justify-center">
-          {Array.from({ length: game.lives }, (_, index) => (
+          {Array.from({ length: lives }, (_, index) => (
             <FaHeart key={index} data-testid="heart-icon" />
           ))}
         </div>
