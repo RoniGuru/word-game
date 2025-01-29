@@ -90,14 +90,15 @@ export default function GameContainer() {
   }
 
   function createPlaceholder() {
-    let emptyCount = randomWord.length - Math.floor(randomWord.length / 3);
+    let revealCount = randomWord.length - Math.floor(randomWord.length / 3);
+
     let random = 0;
     let array = [];
     for (let i = 0; i < randomWord.length; i++) {
       random = Math.floor(Math.random() * 100);
-      if (random >= 70 && emptyCount != 0) {
+      if (random >= 70 && revealCount != 0) {
         array.push(randomWord[i]);
-        emptyCount--;
+        revealCount--;
       } else {
         array.push('_');
       }
