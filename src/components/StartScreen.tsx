@@ -11,20 +11,26 @@ export default function StartScreen({
   const wordBanks = useSelector((state: RootState) => state.wordBank);
   const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
 
+  const playableWordBanks = Object.fromEntries(
+    Object.entries(wordBanks).filter(([_, words]) => words.length > 0)
+  );
+
   const navigate = useNavigate();
 
   function goToNextCategory() {
     setCurrentCategoryIndex(
-      (prevIndex) => (prevIndex + 1) % Object.keys(wordBanks).length
+      (prevIndex) => (prevIndex + 1) % Object.keys(playableWordBanks).length
     );
   }
   function goToPreviousCategory() {
     setCurrentCategoryIndex((prevIndex) =>
-      prevIndex === 0 ? Object.keys(wordBanks).length - 1 : prevIndex - 1
+      prevIndex === 0
+        ? Object.keys(playableWordBanks).length - 1
+        : prevIndex - 1
     );
   }
 
-  const currentCategory = Object.keys(wordBanks)[currentCategoryIndex];
+  const currentCategory = Object.keys(playableWordBanks)[currentCategoryIndex];
 
   return (
     <div className="flex items-center min-w-full flex-col  text-3xl ">

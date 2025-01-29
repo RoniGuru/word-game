@@ -1,11 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../state/store';
-import {
-  backToStart,
-  setCategoryAndWords,
-  startGame,
-} from '../state/game/gameSlice';
+import { setCategoryAndWords, startGame } from '../state/game/gameSlice';
 
 import StartScreen from './StartScreen';
 import EndScreen from './EndScreen';
