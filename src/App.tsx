@@ -19,7 +19,7 @@ function App() {
             }
           />
           <Route
-            path="/createWordBank"
+            path="/WordBank"
             element={
               <RootLayout>
                 <WordBankPage />

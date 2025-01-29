@@ -55,24 +55,24 @@ export default function WordBankPage() {
 
   return (
     <div className="gameContainer flex  flex-col items-center gap-4 ">
-      <button onClick={() => navigate('/')} className="hoverStyle">
+      <button onClick={() => navigate('/')} className="hoverStyle w-1/6">
         Go Back
       </button>
-      <div className="flex  flex-col mt-10">
+      <div className="flex  flex-col mt-10 w-1/6">
         <input
           onChange={(e) => setName(e.target.value)}
           value={name}
           placeholder="enter word"
-          className="textInput text-center"
+          className="textInput text-center w-full"
         />
         <button
           onClick={() => handleCreateWordBank(name)}
-          className="hoverStyle"
+          className="hoverStyle "
         >
           Create Word Bank
         </button>
       </div>
-      <div className="flex items-center justify-between w-1/4 ">
+      <div className="flex items-center justify-between w-1/6 ">
         <button
           onClick={goToPreviousCategory}
           className="text-3xl hoverStyle w-1/6"
@@ -88,7 +88,7 @@ export default function WordBankPage() {
           &rarr;
         </button>
       </div>
-      <button onClick={handleDeleteWordBank} className=" hoverStyle w-1/4">
+      <button onClick={handleDeleteWordBank} className=" hoverStyle w-1/6">
         delete {currentCategory}
       </button>
       <div className="h-1/3  w-1/2 wordsContainer">
@@ -108,12 +108,12 @@ export default function WordBankPage() {
               ))}
         </ul>
       </div>
-      <div className="flex  flex-col">
+      <div className="flex  flex-col w-1/6">
         <input
           onChange={(e) => setNewWord(e.target.value)}
           value={newWord}
           placeholder="new word"
-          className="textInput"
+          className="textInput text-center"
         />
         <button onClick={() => handleAddWord(newWord)} className="hoverStyle">
           Add Word
@@ -121,11 +121,7 @@ export default function WordBankPage() {
       </div>
       <button
         onClick={() => setDeleting(!deleting)}
-        style={{
-          backgroundColor: deleting ? '#2ecc71' : 'black',
-          color: deleting ? 'black' : '#2ecc71',
-        }}
-        className="w-1/6"
+        className={`w-1/6 hoverStyle ${deleting ? 'highlighted' : ''}`}
       >
         Set Deleting Words
       </button>

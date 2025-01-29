@@ -65,3 +65,8 @@
   border: 2px solid #2ecc71;
   padding: 1%;
 }
+
+.highlighted {
+  background-color: #2ecc71;
+  color: black;
+}
